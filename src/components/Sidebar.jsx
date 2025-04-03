@@ -26,7 +26,7 @@ function Sidebar() {
       <aside className="hidden md:block bg-gray-900 text-white w-64 h-screen p-4">
         <h2 className="text-2xl font-bold mb-6 text-center"><NavLink to="/" className="text-yellow-500 flex justify-center gap-2 items-center"><BsStack/>InventoryPro</NavLink></h2>
         <nav className="space-y-4 text-center font-semibold">
-          <NavLink to="/" className={({isActive})=>`block px-4 py-2 rounded bg-gray-700 ${isActive?"bg-gray-700":"bg-gray-900"} flex justify-center items-center gap-2`}>
+          <NavLink to="/dashboard" className={({isActive})=>`block px-4 py-2 rounded bg-gray-700 ${isActive?"bg-gray-700":"bg-gray-900"} flex justify-center items-center gap-2`}>
           <LuLayoutDashboard/>
             Dashboard
           </NavLink>
@@ -54,7 +54,7 @@ function Sidebar() {
     {menuOpen && <div className="inset-0 bg-gray-800 h-screen w-screen">
         <nav className="space-y-4 border-t-1 border-white text-center font-semibold text-white">
           <NavLink
-            to="/"
+            to="/dashboard"
             className="block px-4 py-2 rounded hover:bg-gray-700 text-xl"
             onClick={() => setMenuOpen(false)}
           >
