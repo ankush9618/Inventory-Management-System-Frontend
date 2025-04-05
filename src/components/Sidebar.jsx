@@ -4,6 +4,8 @@ import { ImCross } from "react-icons/im";
 import { useState, useEffect } from "react";
 import { BsStack } from "react-icons/bs";
 import { LuLayoutDashboard } from "react-icons/lu";
+import { AiOutlineProduct } from "react-icons/ai";
+import { MdOutlineInventory2 } from "react-icons/md";
 
 function Sidebar() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -21,7 +23,7 @@ function Sidebar() {
 
   return (
     <>
-    <div className="flex md:w-64 w-full md:absolute">
+    <div className="flex">
       {/* Sidebar - Always visible on large screens */}
       <aside className="hidden md:block bg-gray-900 text-white w-64 h-screen p-4">
         <h2 className="text-2xl font-bold mb-6 text-center"><NavLink to="/" className="text-yellow-500 flex justify-center gap-2 items-center"><BsStack/>InventoryPro</NavLink></h2>
@@ -30,17 +32,19 @@ function Sidebar() {
           <LuLayoutDashboard/>
             Dashboard
           </NavLink>
-          <NavLink to="/products" className={({isActive})=>`block px-4 py-2 rounded bg-gray-700 ${isActive?"bg-gray-700":"bg-gray-900"}`}>
-            Add Products
+          <NavLink to="/products" className={({isActive})=>`block px-4 py-2 rounded bg-gray-700 ${isActive?"bg-gray-700":"bg-gray-900"} flex justify-center items-center gap-2`}>
+          <AiOutlineProduct className="text-xl"/>
+            Products
           </NavLink>
-          <NavLink to="/inventory" className={({isActive})=>`block px-4 py-2 rounded bg-gray-700 ${isActive?"bg-gray-700":"bg-gray-900"}`}>
+          <NavLink to="/inventory" className={({isActive})=>`block px-4 py-2 rounded bg-gray-700 ${isActive?"bg-gray-700":"bg-gray-900"} flex justify-center items-center gap-2`}>
+            <MdOutlineInventory2/>
             Inventory
           </NavLink>
         </nav>
       </aside>
 
       {/* Small Screen Navbar */}
-      <nav className="w-full h-14 bg-gray-800 text-white flex items-center md:hidden px-4 relative gap-4">
+      <nav className="w-screen h-14 bg-gray-800 text-white flex items-center md:hidden px-4 relative gap-4">
         {/* Menu Button */}
         <button className="text-2xl z-50" onClick={() => setMenuOpen(!menuOpen)}>
           {menuOpen ? <ImCross className="text-md" /> : <TiThMenu className="text-3xl"/>}
@@ -51,8 +55,17 @@ function Sidebar() {
       </nav>
 
     </div>
-    {menuOpen && <div className="inset-0 bg-gray-800 h-screen w-screen">
-        <nav className="space-y-4 border-t-1 border-white text-center font-semibold text-white">
+    {menuOpen && <div className="inset-0 bg-gray-800 h-screen w-screen fixed">
+      <nav className="w-screen h-14 bg-gray-800 text-white flex items-center md:hidden px-4 gap-4 absolute">
+        {/* Menu Button */}
+        <button className="text-2xl z-50" onClick={() => setMenuOpen(!menuOpen)}>
+          {menuOpen ? <ImCross className="text-md" /> : <TiThMenu className="text-3xl"/>}
+        </button>
+        {/* App Name - Always Centered */}
+        <h2 className="text-2xl font-bold text-center w-full" onClick={() => setMenuOpen(!menuOpen)}><NavLink to="/" className="text-yellow-500 flex justify-center gap-2 items-center"><BsStack/>InventoryPro</NavLink></h2>
+        <img src="https://res.cloudinary.com/daootd1uo/image/upload/v1742757690/qi1onwszqlq6cxtcpm5b.png" alt="" className="h-8 rounded-3xl"/>
+      </nav>
+        <nav className="space-y-4 border-t-1 border-white text-center font-semibold text-white relative top-14">
           <NavLink
             to="/dashboard"
             className="block px-4 py-2 rounded hover:bg-gray-700 text-xl"
@@ -63,17 +76,20 @@ function Sidebar() {
           </NavLink>
           <NavLink
             to="/products"
-            className="block px-4 py-2 rounded hover:bg-gray-700"
+            className="block px-4 py-2 rounded hover:bg-gray-700 text-xl"
             onClick={() => setMenuOpen(false)}
           >
-            Products
+            <div className="flex justify-center items-center gap-2"><AiOutlineProduct className="text-xl"/>
+            Products</div>
+            
           </NavLink>
           <NavLink
             to="/inventory"
-            className="block px-4 py-2 rounded hover:bg-gray-700"
+            className="block px-4 py-2 rounded hover:bg-gray-700 text-xl"
             onClick={() => setMenuOpen(false)}
-          >
-            Inventory
+          ><div className="flex justify-center items-center gap-2"><MdOutlineInventory2/>
+            Inventory</div>
+            
           </NavLink>
         </nav></div>}
     </>

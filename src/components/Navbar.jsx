@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
 import { IoSearch } from "react-icons/io5";
+import { NavLink } from 'react-router-dom';
 
 function Navbar() {
-  const [loggedIn,setLoggedIn] = useState(true)
+  const [loggedIn,setLoggedIn] = useState(false)
   return (
-    <div className='hidden md:block bg-gray-700 h-14 md:ml-64 fixed w-85/100'>
+    <div className=' bg-gray-700 h-14 w-full'>
           <div className='flex justify-between items-center h-full'>
             <div className='ml-8 '>
               <div className='flex items-center px-4 gap-4 rounded-3xl border-2 border-white'>
@@ -15,7 +16,7 @@ function Navbar() {
             </div>
             <div className='mr-8 flex items-center gap-4'>
                 {loggedIn&&<img src="https://res.cloudinary.com/daootd1uo/image/upload/v1742757690/qi1onwszqlq6cxtcpm5b.png" alt="" className='h-8 rounded-3xl cursor-pointer' />}
-                {loggedIn?<button className='bg-sky-500 px-2 py-1 rounded-md text-white font-semibold'>Logout</button>:<button className='bg-sky-500 px-2 py-1 rounded-md text-white font-semibold'>Login</button>}
+                {loggedIn?<NavLink to='/logout' className='bg-sky-500 px-3 py-1 rounded-md text-white font-semibold cursor-pointer' onClick={()=>setLoggedIn(false)}>Logout</NavLink>:<NavLink to='/login' className='bg-sky-500 px-3 py-1 rounded-md text-white font-semibold cursor-pointer'>Login</NavLink>}
             </div>
           </div>
     </div>
