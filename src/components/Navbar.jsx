@@ -1,11 +1,25 @@
 import React, { useState } from 'react'
 import { IoSearch } from "react-icons/io5";
 import { NavLink } from 'react-router-dom';
+import axiosInstance from '../utils/axiosInstance';
+import { toast } from 'react-toastify';
 
-function Navbar() {
-  const [loggedIn,setLoggedIn] = useState(false)
+
+function Navbar({loggedIn,setLoggedIn}) {
+  const handleLogout = async (e) => {
+    try {
+      const res = await axiosInstance.post("/users/logout");
+      setLoggedIn(false);
+      //toast.success("Logged out successfully!");
+      console.log(res);
+    } catch (err) {
+      console.error(err);
+      //toast.error("Logout failed. Please try again.");
+    }
+  };
+  
   return (
-    <div className=' bg-gray-700 h-14 w-full'>
+    <div className=' bg-gray-800 h-14 w-full'>
           <div className='flex justify-between items-center h-full'>
             <div className='ml-8 '>
               <div className='flex items-center px-4 gap-4 rounded-3xl border-2 border-white'>
@@ -15,8 +29,8 @@ function Navbar() {
                 
             </div>
             <div className='mr-8 flex items-center gap-4'>
-                {loggedIn&&<img src="https://res.cloudinary.com/daootd1uo/image/upload/v1742757690/qi1onwszqlq6cxtcpm5b.png" alt="" className='h-8 rounded-3xl cursor-pointer' />}
-                {loggedIn?<NavLink to='/logout' className='bg-sky-500 px-3 py-1 rounded-md text-white font-semibold cursor-pointer' onClick={()=>setLoggedIn(false)}>Logout</NavLink>:<NavLink to='/login' className='bg-sky-500 px-3 py-1 rounded-md text-white font-semibold cursor-pointer'>Login</NavLink>}
+                {loggedIn&&<NavLink className="" to="/profile"><img src="https://res.cloudinary.com/daootd1uo/image/upload/v1742757690/qi1onwszqlq6cxtcpm5b.png" alt="" className='h-8 rounded-full cursor-pointer' /></NavLink>}
+                {loggedIn?<NavLink to='/' className='bg-sky-500 px-3 py-1 rounded-md text-white font-semibold cursor-pointer' onClick={handleLogout}>Logout</NavLink>:<NavLink to='/login' className='bg-sky-500 px-3 py-1 rounded-md text-white font-semibold cursor-pointer'>Login</NavLink>}
             </div>
           </div>
     </div>

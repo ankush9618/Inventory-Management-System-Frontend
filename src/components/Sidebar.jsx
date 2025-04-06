@@ -51,7 +51,7 @@ function Sidebar() {
         </button>
         {/* App Name - Always Centered */}
         <h2 className="text-2xl font-bold text-center w-full"><NavLink to="/" className="text-yellow-500 flex justify-center gap-2 items-center"><BsStack/>InventoryPro</NavLink></h2>
-        <img src="https://res.cloudinary.com/daootd1uo/image/upload/v1742757690/qi1onwszqlq6cxtcpm5b.png" alt="" className="h-8 rounded-3xl"/>
+        <NavLink to="/profile"><img src="https://res.cloudinary.com/daootd1uo/image/upload/v1742757690/qi1onwszqlq6cxtcpm5b.png" alt="" className="w-12 rounded-full"/></NavLink>
       </nav>
 
     </div>
