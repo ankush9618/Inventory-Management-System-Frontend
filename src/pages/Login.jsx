@@ -30,8 +30,7 @@ function Login({loggedIn,setLoggedIn}) {
       setLoading(false);
       setLoggedIn(true)
       //alert('Login successful!');
-      toast.success("Login Successful",{position: "top-right",
-        autoClose: 2000})
+      toast.success(response.data.message,{autoClose:1000})
       navigate('/dashboard'); // ✅ redirect to a protected route
     } catch (err) {
       console.error(err);

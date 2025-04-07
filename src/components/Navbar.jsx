@@ -1,20 +1,37 @@
 import React, { useState } from 'react'
 import { IoSearch } from "react-icons/io5";
-import { NavLink } from 'react-router-dom';
+import { Navigate, NavLink } from 'react-router-dom';
 import axiosInstance from '../utils/axiosInstance';
 import { toast } from 'react-toastify';
 
 
-function Navbar({loggedIn,setLoggedIn}) {
+function Navbar({loggedIn,setLoggedIn,user,setUser}) {
+
+  //const navigate = Navigate()
+  const handleProfile = async(e)=>{
+    try {
+      // if(!loggedIn){
+      //   navigate("/login")
+      // }
+      const res = await axiosInstance.get("/users/details");
+      setUser(res.data.data)
+      //console.log(res.data.data);
+      setTimeout(()=>{
+        console.log(user)
+      },1000)
+    } catch (error) {
+      console.error(error);
+    }
+  }
   const handleLogout = async (e) => {
     try {
       const res = await axiosInstance.post("/users/logout");
       setLoggedIn(false);
-      //toast.success("Logged out successfully!");
+      toast.warn(res.data.message);
       console.log(res);
     } catch (err) {
       console.error(err);
-      //toast.error("Logout failed. Please try again.");
+      toast.error("Logout failed. Please try again.");
     }
   };
   
@@ -29,7 +46,7 @@ function Navbar({loggedIn,setLoggedIn}) {
                 
             </div>
             <div className='mr-8 flex items-center gap-4'>
-                {loggedIn&&<NavLink className="" to="/profile"><img src="https://res.cloudinary.com/daootd1uo/image/upload/v1742757690/qi1onwszqlq6cxtcpm5b.png" alt="" className='h-8 rounded-full cursor-pointer' /></NavLink>}
+                {loggedIn&&<NavLink className="" to="/profile"><img onClick={handleProfile} src="https://res.cloudinary.com/daootd1uo/image/upload/v1742757690/qi1onwszqlq6cxtcpm5b.png" alt="" className='h-8 rounded-full cursor-pointer' /></NavLink>}
                 {loggedIn?<NavLink to='/' className='bg-sky-500 px-3 py-1 rounded-md text-white font-semibold cursor-pointer' onClick={handleLogout}>Logout</NavLink>:<NavLink to='/login' className='bg-sky-500 px-3 py-1 rounded-md text-white font-semibold cursor-pointer'>Login</NavLink>}
             </div>
           </div>

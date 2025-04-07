@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import axiosInstance from '../utils/axiosInstance';
+import { toast } from 'react-toastify';
 
 function Products() {
-    //const [products,setProducts]=useState()
+    const [products,setProducts]=useState([])
     useEffect(() => {
         axiosInstance.get("/products")
           .then((res) => {
-            console.log(res.data)
+            console.log(res.data.data)
             //console.log(req.user)
-            //setProducts(res.data.data); // assuming you return { data: [...] }
+            toast.success(res.data.message)
+            setProducts(res.data.data); // assuming you return { data: [...] }
           })
           .catch((err) => {
             console.error("Error fetching products:", err);
@@ -16,7 +18,11 @@ function Products() {
       }, []);
     
   return (
-    <div>Products</div>
+    <>
+    {
+      products.map((product)=><div key={product._id}>{product.name}</div>)
+    }
+    </>
   )
 }
 
