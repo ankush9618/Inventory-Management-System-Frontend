@@ -1,9 +1,27 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import axiosInstance from '../utils/axiosInstance'
 import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
+import UserContext from '../context/UserContext'
 
-function Profile({loggedIn,setLoggedIn,user}) {
-   
+function Profile({user,setUser}) {
+    const navigate = useNavigate();
+    const {loggedIn} = useContext(UserContext);
+   useEffect(()=>{
+    if(!loggedIn){
+        navigate("/login")
+    }
+    axiosInstance.get("/users/details")
+    .then((res)=>{
+        setUser(res.data.data)
+        console.log(res.data.data)
+        //toast.success(res.data.message);
+    }).catch((err)=>{
+        console.log(err);
+        //toast.error(res.data.message)
+    })
+   },[])
+
   return (
     <>
     <div className='md:flex md:justify-start w-full p-8 bg-gray-700 gap-8 dark:text-white'>

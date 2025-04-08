@@ -1,16 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import axiosInstance from '../utils/axiosInstance';
 import { toast } from "react-toastify";
+import UserContext from '../context/UserContext';
 
 
-function Login({loggedIn,setLoggedIn}) {
+function Login() {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: '',
     password: ''
   });
-
+  const {loggedIn,setLoggedIn} = useContext(UserContext)
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 

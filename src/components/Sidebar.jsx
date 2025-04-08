@@ -1,15 +1,32 @@
 import { NavLink } from "react-router-dom";
 import { TiThMenu } from "react-icons/ti";
 import { ImCross } from "react-icons/im";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { BsStack } from "react-icons/bs";
 import { LuLayoutDashboard } from "react-icons/lu";
 import { AiOutlineProduct } from "react-icons/ai";
 import { MdOutlineInventory2 } from "react-icons/md";
+import UserContext from "../context/UserContext";
+import axiosInstance from "../utils/axiosInstance";
+import { toast } from "react-toastify";
 
 function Sidebar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+  const {loggedIn,setLoggedIn} = useContext(UserContext)
+
+  const handleLogout = async (e) => {
+    try {
+      const res = await axiosInstance.post("/users/logout");
+      setMenuOpen(false)
+      setLoggedIn(false);
+      !isMobile && toast.warn(res.data.message);
+      console.log(res);
+    } catch (err) {
+      console.error(err);
+      toast.error("Logout failed. Please try again.");
+    }
+  };
 
   // Handle screen resizing
   useEffect(() => {
@@ -63,12 +80,12 @@ function Sidebar() {
         </button>
         {/* App Name - Always Centered */}
         <h2 className="text-2xl font-bold text-center w-full" onClick={() => setMenuOpen(!menuOpen)}><NavLink to="/" className="text-yellow-500 flex justify-center gap-2 items-center"><BsStack/>InventoryPro</NavLink></h2>
-        <img src="https://res.cloudinary.com/daootd1uo/image/upload/v1742757690/qi1onwszqlq6cxtcpm5b.png" alt="" className="h-8 rounded-3xl"/>
+        <NavLink to="/profile" onClick={()=>setMenuOpen(false)}><img src="https://res.cloudinary.com/daootd1uo/image/upload/v1742757690/qi1onwszqlq6cxtcpm5b.png" alt="" className="h-8 rounded-3xl"/></NavLink>
       </nav>
         <nav className="space-y-4 border-t-1 border-white text-center font-semibold text-white relative top-14">
           <NavLink
             to="/dashboard"
-            className="block px-4 py-2 rounded hover:bg-gray-700 text-xl"
+            className="block px-4 py-2 rounded hover:bg-gray-700 text-xl mt-5"
             onClick={() => setMenuOpen(false)}
           >
             <div className="flex justify-center items-center gap-2"><LuLayoutDashboard/>
@@ -89,8 +106,19 @@ function Sidebar() {
             onClick={() => setMenuOpen(false)}
           ><div className="flex justify-center items-center gap-2"><MdOutlineInventory2/>
             Inventory</div>
-            
           </NavLink>
+          {loggedIn?<div
+            className="block px-4 py-2 rounded hover:bg-gray-700 text-xl"
+            onClick={handleLogout}
+          ><div className="flex justify-center items-center gap-2">
+            Logout</div>
+          </div>:<NavLink
+            to="/login"
+            className=" px-4 py-2 rounded hover:bg-gray-700 text-xl w-full flex justify-center"
+            onClick={() => setMenuOpen(false)}
+          ><div className="bg-sky-300 px-2 py-1 w-4/5 text-center">
+            Login/SignUp</div>
+          </NavLink>}
         </nav></div>}
     </>
   );

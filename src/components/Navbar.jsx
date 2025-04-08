@@ -1,28 +1,16 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { IoSearch } from "react-icons/io5";
 import { Navigate, NavLink } from 'react-router-dom';
 import axiosInstance from '../utils/axiosInstance';
 import { toast } from 'react-toastify';
+import UserContext from '../context/UserContext';
 
 
-function Navbar({loggedIn,setLoggedIn,user,setUser}) {
+function Navbar({user,setUser}) {
 
   //const navigate = Navigate()
-  const handleProfile = async(e)=>{
-    try {
-      // if(!loggedIn){
-      //   navigate("/login")
-      // }
-      const res = await axiosInstance.get("/users/details");
-      setUser(res.data.data)
-      //console.log(res.data.data);
-      setTimeout(()=>{
-        console.log(user)
-      },1000)
-    } catch (error) {
-      console.error(error);
-    }
-  }
+  const {loggedIn,setLoggedIn}=useContext(UserContext);
+  
   const handleLogout = async (e) => {
     try {
       const res = await axiosInstance.post("/users/logout");
@@ -46,8 +34,13 @@ function Navbar({loggedIn,setLoggedIn,user,setUser}) {
                 
             </div>
             <div className='mr-8 flex items-center gap-4'>
-                {loggedIn&&<NavLink className="" to="/profile"><img onClick={handleProfile} src="https://res.cloudinary.com/daootd1uo/image/upload/v1742757690/qi1onwszqlq6cxtcpm5b.png" alt="" className='h-8 rounded-full cursor-pointer' /></NavLink>}
-                {loggedIn?<NavLink to='/' className='bg-sky-500 px-3 py-1 rounded-md text-white font-semibold cursor-pointer' onClick={handleLogout}>Logout</NavLink>:<NavLink to='/login' className='bg-sky-500 px-3 py-1 rounded-md text-white font-semibold cursor-pointer'>Login</NavLink>}
+                {loggedIn&&<NavLink className="" to="/profile"><img src="https://res.cloudinary.com/daootd1uo/image/upload/v1742757690/qi1onwszqlq6cxtcpm5b.png" alt="" className='h-8 rounded-full cursor-pointer' /></NavLink>}
+                {loggedIn?<NavLink to='/' className='bg-sky-500 px-3 py-1 rounded-md text-white font-semibold cursor-pointer' onClick={handleLogout}>Logout</NavLink>:<NavLink to='/login' className=''><button
+                  type="submit"
+                  className="w-full text-white bg-blue-600 hover:bg-blue-700 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700"
+                >
+                  Login
+                </button></NavLink>}
             </div>
           </div>
     </div>
