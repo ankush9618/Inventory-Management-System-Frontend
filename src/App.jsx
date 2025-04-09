@@ -12,11 +12,10 @@ import { useEffect, useState } from "react";
 import { ToastContainer, toast } from 'react-toastify';
 import UserContextProvider from "./context/UserContextProvider";
 import axiosInstance from "./utils/axiosInstance";
+import UpdateProduct from "./pages/UpdateProduct";
 
 function App() {
   const [user,setUser] = useState({});
-
-
   return (
     <Router>
       <UserContextProvider>
@@ -41,6 +40,7 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/profile" element={<Profile  user={user} setUser={setUser}/>} />
             <Route path="/products" element={<Products/>} />
+            <Route path="/products/update/:id" element={<UpdateProduct/>}/>
           </Routes>
         </div>
       </div>
