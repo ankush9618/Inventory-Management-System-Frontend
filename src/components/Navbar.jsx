@@ -10,13 +10,24 @@ function Navbar({user,setUser}) {
 
   //const navigate = Navigate()
   const {loggedIn,setLoggedIn}=useContext(UserContext);
-  
+  const handleProfile = async(e)=>{
+    try {
+      // if(!loggedIn){
+      //   navigate("/login")
+      // }
+      const res = await axiosInstance.get("/users/details");
+      setUser(res.data.data)
+     // console.log(res.data.data);
+    } catch (error) {
+      console.error(error);
+    }
+  }
   const handleLogout = async (e) => {
     try {
       const res = await axiosInstance.post("/users/logout");
       setLoggedIn(false);
       toast.warn(res.data.message);
-      console.log(res);
+      //console.log(res);
     } catch (err) {
       console.error(err);
       toast.error("Logout failed. Please try again.");
@@ -34,13 +45,8 @@ function Navbar({user,setUser}) {
                 
             </div>
             <div className='mr-8 flex items-center gap-4'>
-                {loggedIn&&<NavLink className="" to="/profile"><img src="https://res.cloudinary.com/daootd1uo/image/upload/v1742757690/qi1onwszqlq6cxtcpm5b.png" alt="" className='h-8 rounded-full cursor-pointer' /></NavLink>}
-                {loggedIn?<NavLink to='/' className='bg-sky-500 px-3 py-1 rounded-md text-white font-semibold cursor-pointer' onClick={handleLogout}>Logout</NavLink>:<NavLink to='/login' className=''><button
-                  type="submit"
-                  className="w-full text-white bg-blue-600 hover:bg-blue-700 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700"
-                >
-                  Login
-                </button></NavLink>}
+                {loggedIn&&<NavLink className="" to="/profile"><img onClick={handleProfile} src="https://res.cloudinary.com/daootd1uo/image/upload/v1742757690/qi1onwszqlq6cxtcpm5b.png" alt="" className='h-8 rounded-full cursor-pointer' /></NavLink>}
+                {loggedIn?<NavLink to='/' className='bg-sky-500 px-3 py-1 rounded-md text-white font-semibold cursor-pointer' onClick={handleLogout}>Logout</NavLink>:<NavLink to='/login' className='bg-sky-500 px-3 py-1 rounded-md text-white font-semibold cursor-pointer'>Login</NavLink>}
             </div>
           </div>
     </div>

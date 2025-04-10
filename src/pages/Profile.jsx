@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import axiosInstance from '../utils/axiosInstance'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
@@ -8,15 +8,11 @@ function Profile({user,setUser}) {
     const navigate = useNavigate();
     const {loggedIn} = useContext(UserContext);
    useEffect(()=>{
-    console.log(loggedIn)
-    if(!loggedIn){
-        navigate("/login")
-        console.log("Log")
-    }
+    //console.log(loggedIn)
     axiosInstance.get("/users/details")
     .then((res)=>{
         setUser(res.data.data)
-        console.log(res.data.data)
+        //console.log(res.data.data)
         //toast.success(res.data.message);
     }).catch((err)=>{
         console.log(err);
@@ -24,15 +20,47 @@ function Profile({user,setUser}) {
     })
    },[])
 
+   const data = useRef()
+   const updateImage = async (e) => {
+    e.preventDefault();
+  
+    if (!data.current.files.length) {
+      toast.warn("Please select a Image.");
+      return;
+    }
+  
+    const formData = new FormData();
+    formData.append("avatar", data.current.files[0]);
+  
+    try {
+      const res = await axiosInstance.patch("/users/update-avatar", formData);
+      //console.log(res);
+      toast.success(res.data.message)
+    } catch (error) {
+      console.error("Error:", error);
+      alert("Failed to update avatar.");
+    }
+  };
+  
+
   return (
     <>
-    <div className='md:flex md:justify-start w-full min-h-screen p-8 bg-gray-700 gap-8 dark:text-white'>
+    <div className='md:flex md:justify-start w-full min-h-screen p-8 bg-gradient-to-br from-gray-500 via-zinc-400 to-white dark:text-white'>
         <div className='flex justify-center'>
         <div className='flex justify-start items-center flex-col'>
         <img src={user.avatar} alt="" className='h-40 rounded-full cursor-pointer' />
         
-{/* <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="file_input">Upload file</label> */}
-<input class="block mt-4 text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="avatar" type="file"/>
+{/* <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="file_input">Upload file</label> */}
+<div className='flex justify-center items-center mt-4'>
+
+
+<form action="" encType="multipart/form-data" method="patch" onSubmit={updateImage}>
+  <div className='flex justify-center items-center'>
+  <input className="block px-1 border-r-0 text-gray-900 border border-gray-300 rounded-l-md cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 w-3/5" id="avatar" type="file" name="avatar" ref={data}/>
+  <input type="submit" value="Update" className='bg-transparent border-1 border-white px-1 rounded-r-md cursor-pointer'/>
+  </div>
+</form>
+</div>
 
         </div>
         

@@ -9,7 +9,7 @@ function ProductCard({product}) {
     }
   return (
     
-        <div className="bg-white rounded-lg shadow-lg p-8">
+        <div className="bg-gradient-to-br from-gray-300 via-zinc-300 to-white rounded-lg shadow-lg p-8">
                 <div className="relative overflow-hidden">
                     <img className=" w-full h-full" src="https://res.cloudinary.com/daootd1uo/image/upload/v1744225507/th_e4sczd.jpg" alt="Product"/>
                     <div className="absolute inset-0 bg-black opacity-40"></div>
