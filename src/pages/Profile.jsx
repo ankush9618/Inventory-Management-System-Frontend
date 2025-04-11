@@ -3,27 +3,29 @@ import axiosInstance from '../utils/axiosInstance'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import UserContext from '../context/UserContext'
+import Loader from '../components/Loader'
+import ProfileLoader from '../components/ProfileLoader'
 
-function Profile({user,setUser}) {
+function Profile() {
     const navigate = useNavigate();
-    const {loggedIn} = useContext(UserContext);
-   useEffect(()=>{
-    //console.log(loggedIn)
-    axiosInstance.get("/users/details")
-    .then((res)=>{
-        setUser(res.data.data)
-        //console.log(res.data.data)
-        //toast.success(res.data.message);
-    }).catch((err)=>{
-        console.log(err);
-        //toast.error(res.data.message)
-    })
-   },[])
+    const {loggedIn,user,setUser,loading,setLoading} = useContext(UserContext);
+//    useEffect(()=>{
+//     //console.log(loggedIn)
+//     axiosInstance.get("/users/details")
+//     .then((res)=>{
+//         setUser(res.data.data)
+//         //console.log(res.data.data)
+//         //toast.success(res.data.message);
+//     }).catch((err)=>{
+//         console.log(err);
+//         //toast.error(res.data.message)
+//     })
+//    },[])
 
    const data = useRef()
    const updateImage = async (e) => {
     e.preventDefault();
-  
+    setLoading(true)
     if (!data.current.files.length) {
       toast.warn("Please select a Image.");
       return;
@@ -36,6 +38,9 @@ function Profile({user,setUser}) {
       const res = await axiosInstance.patch("/users/update-avatar", formData);
       //console.log(res);
       toast.success(res.data.message)
+      setLoading(false)
+      //navigate("/")
+      //navigate("/users/profile")
     } catch (error) {
       console.error("Error:", error);
       alert("Failed to update avatar.");
@@ -45,10 +50,11 @@ function Profile({user,setUser}) {
 
   return (
     <>
-    <div className='md:flex md:justify-start w-full min-h-screen p-8 bg-gradient-to-br from-gray-500 via-zinc-400 to-white dark:text-white'>
+    {
+        loading?<div className="bg-gradient-to-tr from-white via-zinc-400 to-gray-400 py-16 px-16 w-full min-h-screen"><ProfileLoader/></div>:<div className='md:flex md:justify-start w-full min-h-screen p-8 bg-gradient-to-br from-gray-500 via-zinc-400 to-white dark:text-white'>
         <div className='flex justify-center'>
         <div className='flex justify-start items-center flex-col'>
-        <img src={user.avatar} alt="" className='h-40 rounded-full cursor-pointer' />
+        <img src={user?.avatar} alt="" className='h-40 rounded-full cursor-pointer' />
         
 {/* <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="file_input">Upload file</label> */}
 <div className='flex justify-center items-center mt-4'>
@@ -71,7 +77,7 @@ function Profile({user,setUser}) {
                     Name:
                 </div>
                 <div>
-                    {user.name}
+                    {user?.name}
                 </div>
             </div>
             <div className='flex justify-start gap-4 items-center h-14'>
@@ -79,7 +85,7 @@ function Profile({user,setUser}) {
                     Email:
                 </div>
                 <div>
-                    {user.email}
+                    {user?.email}
                 </div>
             </div>
             <div className='flex justify-start gap-4 items-center h-14'>
@@ -87,11 +93,12 @@ function Profile({user,setUser}) {
                     Role:
                 </div>
                 <div>
-                    {user.role}
+                    {user?.role}
                 </div>
             </div>
         </div>
     </div>
+    }
     </>
   )
 }

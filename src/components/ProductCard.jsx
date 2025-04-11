@@ -15,7 +15,7 @@ function ProductCard({product}) {
                     <div className="absolute inset-0 bg-black opacity-40"></div>
                 </div>
                 <div className='flex justify-between items-center h-auto mt-4'>
-                <h3 className="text-xl font-bold text-gray-900">{product.name.slice(0,10)}..</h3><NavLink to={`/products/update/${product._id}`}className=" font-bold"><FaRegEdit/></NavLink>
+                <h3 className="text-xl font-bold text-gray-900">{product.name.slice(0,15)}..</h3><NavLink to={`/products/update/${product._id}`}className=" font-bold"><FaRegEdit/></NavLink>
                 </div>
                 <p className="text-gray-500 text-sm mt-2">{product.description.slice(0,50)}..</p>
                 <div className="flex items-center justify-between mt-4">

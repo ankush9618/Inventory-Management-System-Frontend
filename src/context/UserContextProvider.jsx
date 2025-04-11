@@ -3,8 +3,9 @@ import UserContext from './UserContext.js'
 import axiosInstance from '../utils/axiosInstance.js';
 
 function UserContextProvider({children}) {
-
     const [loggedIn,setLoggedIn] = useState(false)
+    const [user,setUser] = useState({})
+    const [loading, setLoading] = useState(false);
     
     useEffect(()=>{
         try {
@@ -12,7 +13,17 @@ function UserContextProvider({children}) {
                 const response = await axiosInstance.get("/users/login-status");
                 setLoggedIn(response.data)
             }
+            const userDetails = async()=>{
+              try {
+                const resp = await axiosInstance.get("/users/details");
+                setUser(resp.data.data)
+                //console.log(1)
+              } catch (error) {
+                console.log(err)
+              }
+            }
             status()
+            userDetails()
           
         } catch (error) {
           console.log(error)
@@ -21,7 +32,7 @@ function UserContextProvider({children}) {
     },[])
 
   return (
-    <UserContext.Provider value={{loggedIn,setLoggedIn}}>
+    <UserContext.Provider value={{loggedIn,setLoggedIn,user,setUser,loading,setLoading}}>
         {children}
     </UserContext.Provider>
   )

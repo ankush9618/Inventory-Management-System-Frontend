@@ -6,10 +6,10 @@ import { toast } from 'react-toastify';
 import UserContext from '../context/UserContext';
 
 
-function Navbar({user,setUser}) {
+function Navbar() {
 
   //const navigate = Navigate()
-  const {loggedIn,setLoggedIn}=useContext(UserContext);
+  const {loggedIn,setLoggedIn,user,setUser}=useContext(UserContext);
   const handleProfile = async(e)=>{
     try {
       // if(!loggedIn){
@@ -45,7 +45,7 @@ function Navbar({user,setUser}) {
                 
             </div>
             <div className='mr-8 flex items-center gap-4'>
-                {loggedIn&&<NavLink className="" to="/profile"><img onClick={handleProfile} src="https://res.cloudinary.com/daootd1uo/image/upload/v1742757690/qi1onwszqlq6cxtcpm5b.png" alt="" className='h-8 rounded-full cursor-pointer' /></NavLink>}
+                {loggedIn&&<NavLink className="" to="/users/profile"><img onClick={handleProfile} src={user.avatar} alt="" className='h-8 rounded-full cursor-pointer' /></NavLink>}
                 {loggedIn?<NavLink to='/' className='bg-sky-500 px-3 py-1 rounded-md text-white font-semibold cursor-pointer' onClick={handleLogout}>Logout</NavLink>:<NavLink to='/login' className='bg-sky-500 px-3 py-1 rounded-md text-white font-semibold cursor-pointer'>Login</NavLink>}
             </div>
           </div>

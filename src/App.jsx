@@ -13,12 +13,15 @@ import { ToastContainer, toast } from 'react-toastify';
 import UserContextProvider from "./context/UserContextProvider";
 import axiosInstance from "./utils/axiosInstance";
 import UpdateProduct from "./pages/UpdateProduct";
+import AddProduct from "./pages/AddProduct";
+import ProductContextProvider from "./context/ProductContextProvider";
 
 function App() {
-  const [user,setUser] = useState({});
+  //const [user,setUser] = useState({});
   return (
     <Router>
       <UserContextProvider>
+      <ProductContextProvider>
       <ToastContainer/>
       <div className="md:bg-gray-900 bg-gray-500 min-h-screen overflow-x-hidden">
         {/* Sidebar */}
@@ -28,7 +31,7 @@ function App() {
 
         {/* Navbar */}
         <div className="fixed top-0 left-0 md:left-64 right-0 h-14 bg-gray-700 z-20 hidden md:block">
-          <Navbar user={user} setUser={setUser}/>
+          <Navbar/>
         </div>
 
         {/* Main Content */}
@@ -38,12 +41,14 @@ function App() {
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/profile" element={<Profile  user={user} setUser={setUser}/>} />
+            <Route path="/users/profile" element={<Profile />} />
             <Route path="/products" element={<Products/>} />
             <Route path="/products/update/:id" element={<UpdateProduct/>}/>
+            <Route path="/products/add" element={<AddProduct/>}/>
           </Routes>
         </div>
       </div>
+      </ProductContextProvider>
       </UserContextProvider>
     </Router>
   );
