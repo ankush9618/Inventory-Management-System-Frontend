@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react'
 import { IoSearch } from "react-icons/io5";
-import { Navigate, NavLink } from 'react-router-dom';
+import { Navigate, NavLink, useNavigate } from 'react-router-dom';
 import axiosInstance from '../utils/axiosInstance';
 import { toast } from 'react-toastify';
 import UserContext from '../context/UserContext';
@@ -8,7 +8,7 @@ import UserContext from '../context/UserContext';
 
 function Navbar() {
 
-  //const navigate = Navigate()
+  const navigate = useNavigate()
   const {loggedIn,setLoggedIn,user,setUser}=useContext(UserContext);
   const handleProfile = async(e)=>{
     try {
@@ -27,6 +27,7 @@ function Navbar() {
       const res = await axiosInstance.post("/users/logout");
       setLoggedIn(false);
       toast.warn(res.data.message);
+      navigate("/")
       //console.log(res);
     } catch (err) {
       console.error(err);

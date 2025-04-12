@@ -13,8 +13,8 @@ function Login() {
   });
   const {loggedIn,setLoggedIn} = useContext(UserContext)
   const [error, setError] = useState('');
-  const [loading, setLoading] = useState(false);
-
+  const [loading,setLoading] = useState(false)
+  //console.log(loading)
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
@@ -24,7 +24,6 @@ function Login() {
     e.preventDefault();
     setError('');
     setLoading(true);
-
     try {
       const response = await axiosInstance.post('/users/login', formData); // ✅ set your actual route here
       console.log(response.data); // Optional: Handle token or session
@@ -42,9 +41,10 @@ function Login() {
   };
   useEffect(()=>{
     if(loggedIn){
+      //console.log(1)
         navigate("/dashboard")
     }
-  },[])
+  },[loggedIn])
   return (
     <div className="h-auto">
       <section className="bg-gray-50 dark:bg-gray-500">

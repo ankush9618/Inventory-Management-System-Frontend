@@ -51,7 +51,7 @@ function UpdateProduct() {
             <img src="https://res.cloudinary.com/daootd1uo/image/upload/v1744225507/th_e4sczd.jpg" alt="" />
             <div className='flex justify-start gap-2 mt-2'><label className='font-semibold rounded-md' htmlFor='name'>Name:</label><input type="text" name="productName" id="productName" required className='outline-none border-1 px-2' defaultValue={product.name} ref={productName} /></div>
             <div className='flex justify-start gap-2 mt-2'><label className='font-semibold' htmlFor='price'>Price:</label><input type="text" name="price" id="price" required className='outline-none border-1 px-2 rounded-md' defaultValue={product.price} ref={price}/></div>
-            <div className='flex justify-start gap-2 mt-2'><label className='font-semibold' htmlFor='category'>Category:</label><select name="category" defaultValue={product.category} id="category" ref={category}><option value="General">General</option></select></div>
+            <div className='flex justify-start gap-2 mt-2'><label className='font-semibold' htmlFor='category'>Category:</label><select name="category" defaultValue={product.category} id="category" ref={category}><option value="General">General</option><option value="Sirup">Sirup</option></select></div>
             <div className='flex justify-start gap-2 mt-2'><label className='font-semibold' htmlFor='description'>Description:</label><textarea type="text" name="description" id="description" ref={description} required className='outline-none border-1 px-2 rounded-md' rows='5' cols='80' defaultValue={product.description} /></div>
             <input type="submit" value="Update Product" className='cursor-pointer bg-sky-500 mt-4 px-2 py-1 rounded-md'/>
          </form>
