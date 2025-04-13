@@ -3,6 +3,8 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import axiosInstance from '../utils/axiosInstance';
 import { toast } from "react-toastify";
 import UserContext from '../context/UserContext';
+import {XMLParser} from "fast-xml-parser"
+
 
 
 function Login() {
@@ -14,6 +16,7 @@ function Login() {
   const {loggedIn,setLoggedIn} = useContext(UserContext)
   const [error, setError] = useState('');
   const [loading,setLoading] = useState(false)
+  const parser = new XMLParser();
   //console.log(loading)
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -34,8 +37,11 @@ function Login() {
       navigate('/dashboard'); // ✅ redirect to a protected route
     } catch (err) {
       console.error(err);
-      setError(err.response?.data?.message || 'Invalid email or password.');
-      toast.error("Invalid email or password.")
+      const jsonResponse = parser.parse(err.response.data)?.html?.head?.body?.pre["#text"];
+                  //console.log(jsonResponse)
+      
+      setError(jsonResponse || 'Invalid email or password.1');
+      toast.error(jsonResponse)
       setLoading(false);
     }
   };

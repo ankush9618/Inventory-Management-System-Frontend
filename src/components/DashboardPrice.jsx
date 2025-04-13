@@ -29,7 +29,7 @@ function DashboardPrice() {
     //console.log(products)
   return (
     <>
-    <div className="rounded-2xl border border-gray-200 bg-white p-5 bg-gradient-to-tr dark:from-purple-200 via-sky-100 to-zinc-700 md:p-6 md:w-90 mb-5">
+    <div className="rounded-2xl border border-gray-200 bg-white p-5 bg-gradient-to-tr dark:from-purple-200 via-sky-100 to-zinc-400 md:p-6 md:w-90 mb-5">
     {
       loader?<ProfileLoader/>:<>
       

@@ -2,6 +2,8 @@ import React, { useEffect, useRef, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import axiosInstance from '../utils/axiosInstance';
 import { toast } from 'react-toastify';
+import {XMLParser} from "fast-xml-parser"
+
 
 function AddProduct() {
     const {id} = useParams();
@@ -11,7 +13,10 @@ function AddProduct() {
     const price= useRef();
     const category = useRef();
     const navigate = useNavigate()
+    const [error,setError] = useState("")
+    const parser = new XMLParser();
     const handleUpdate = async(e)=>{
+        setError("")
         e.preventDefault();
         let formData = {
             "productName":productName.current.value,
@@ -25,8 +30,10 @@ function AddProduct() {
             toast.success(res.data.message)
             navigate("/products");
         }).catch((err)=>{
-            console.log(err)
-            toast.error(err.message)
+            const jsonResponse = parser.parse(err.response.data)?.html?.head?.body?.pre["#text"]
+            //console.log(jsonResponse)
+            setError(jsonResponse)
+            toast.error(jsonResponse)
         })
 
         //console.log(name.current.value)
@@ -40,6 +47,7 @@ function AddProduct() {
             <div className='flex justify-start gap-2 mt-2'><label className='font-semibold' htmlFor='price'>Price:</label><input type="text" name="price" id="price" required className='outline-none border-1 px-2 rounded-md' defaultValue={product.price} ref={price}/></div>
             <div className='flex justify-start gap-2 mt-2'><label className='font-semibold' htmlFor='category'>Category:</label><select name="category" defaultValue={product.category} id="category" ref={category}><option value="General">General</option></select></div>
             <div className='flex justify-start gap-2 mt-2'><label className='font-semibold' htmlFor='description'>Description:</label><textarea type="text" name="description" id="description" ref={description} required className='outline-none border-1 px-2 rounded-md' rows='5' cols='80' defaultValue={product.description} /></div>
+            {error && <p className='text-red-500 mt-2'>{error}</p>}
             <input type="submit" value="Add Product" className='cursor-pointer bg-sky-500 mt-4 px-2 py-1 rounded-md'/>
          </form>
     </div>

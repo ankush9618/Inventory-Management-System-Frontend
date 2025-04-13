@@ -13,7 +13,7 @@ import { toast } from "react-toastify";
 function Sidebar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
-  const {loggedIn,setLoggedIn} = useContext(UserContext)
+  const {loggedIn,setLoggedIn,user} = useContext(UserContext)
   const navigate = useNavigate();
   const handleLogout = async (e) => {
     try {
@@ -69,7 +69,7 @@ function Sidebar() {
         </button>
         {/* App Name - Always Centered */}
         <h2 className="text-2xl font-bold text-center w-full"><NavLink to="/" className="text-yellow-500 flex justify-center gap-2 items-center"><BsStack/>InventoryPro</NavLink></h2>
-        <NavLink to="/users/profile"><img src="https://res.cloudinary.com/daootd1uo/image/upload/v1742757690/qi1onwszqlq6cxtcpm5b.png" alt="" className="w-12 rounded-full"/></NavLink>
+        <NavLink to="/users/profile"><img src={user.avatar} alt="" className="w-12 rounded-full"/></NavLink>
       </nav>
 
     </div>
@@ -81,7 +81,7 @@ function Sidebar() {
         </button>
         {/* App Name - Always Centered */}
         <h2 className="text-2xl font-bold text-center w-full" onClick={() => setMenuOpen(!menuOpen)}><NavLink to="/" className="text-yellow-500 flex justify-center gap-2 items-center"><BsStack/>InventoryPro</NavLink></h2>
-        <NavLink to="/users/profile" onClick={()=>setMenuOpen(false)}><img src="https://res.cloudinary.com/daootd1uo/image/upload/v1742757690/qi1onwszqlq6cxtcpm5b.png" alt="" className="h-8 rounded-3xl"/></NavLink>
+        <NavLink to="/users/profile" onClick={()=>setMenuOpen(false)}><img src={user.avatar} alt="" className="h-8 rounded-3xl"/></NavLink>
       </nav>
         <nav className="space-y-4 border-t-1 border-white text-center font-semibold text-white relative top-14">
           <NavLink

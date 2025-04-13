@@ -5,6 +5,7 @@ import { toast } from 'react-toastify'
 import UserContext from '../context/UserContext'
 import Loader from '../components/Loader'
 import ProfileLoader from '../components/ProfileLoader'
+import { XMLParser } from 'fast-xml-parser'
 
 function Profile() {
     const navigate = useNavigate();
@@ -23,17 +24,20 @@ function Profile() {
 //    },[])
 
    const data = useRef()
+  const parser = new XMLParser()
+  const [error,setError] = useState("")
    const updateImage = async (e) => {
     e.preventDefault();
     setLoading(true)
     if (!data.current.files.length) {
+      setError("Please select a Image.")
       toast.warn("Please select a Image.");
+      setLoading(false)
       return;
     }
   
     const formData = new FormData();
     formData.append("avatar", data.current.files[0]);
-  
     try {
       const res = await axiosInstance.patch("/users/update-avatar", formData);
       //console.log(res);
@@ -42,8 +46,11 @@ function Profile() {
       //navigate("/")
       //navigate("/users/profile")
     } catch (error) {
-      console.error("Error:", error);
-      alert("Failed to update avatar.");
+      //console.error("Error:", error);
+      const jsonResponse = parser.parse(error.response.data)?.html?.head?.body?.pre["#text"]
+                  //console.log(jsonResponse)
+      setError(jsonResponse)
+      toast.error(jsonResponse)
     }
   };
   
@@ -55,11 +62,9 @@ function Profile() {
         <div className='flex justify-center'>
         <div className='flex justify-start items-center flex-col'>
         <img src={user?.avatar} alt="" className='h-40 rounded-full cursor-pointer' />
-        
+        {error && <p className='text-red-500 mt-2 text-xl'>{error}</p>}
 {/* <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="file_input">Upload file</label> */}
 <div className='flex justify-center items-center mt-4'>
-
-
 <form action="" encType="multipart/form-data" method="patch" onSubmit={updateImage}>
   <div className='flex justify-center items-center'>
   <input className="block px-1 border-r-0 text-gray-900 border border-gray-300 rounded-l-md cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 w-3/5" id="avatar" type="file" name="avatar" ref={data}/>

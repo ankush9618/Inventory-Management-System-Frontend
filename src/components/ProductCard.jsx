@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
 import { FaRegEdit } from "react-icons/fa";
 import { RiSubtractFill } from "react-icons/ri";
@@ -48,6 +48,33 @@ function ProductCard({product}) {
             console.log(err)
         })
     }
+    const bulkQuan=useRef(0);
+
+    const adddBulk = async() =>{
+        setStock((prev)=>prev+Number(bulkQuan.current.value));
+            await axiosInstance.post(`/inventory/add/${product._id}`,{stock:Number(bulkQuan.current.value)})
+            .then((res)=>{
+                setTimeout(()=>{
+                    toast.success(res.data.message,{autoClose:500})
+                },1000)
+                
+            })
+            .catch((err)=>{
+                console.log(err)
+            })
+    }
+    const removeBulk = async() =>{
+        setStock((prev)=>prev-Number(bulkQuan.current.value));
+            await axiosInstance.patch(`/inventory/remove/${product._id}`,{stock:Number(bulkQuan.current.value)})
+            .then((res)=>{
+                setTimeout(()=>{
+                    toast.success(res.data.message,{autoClose:500})
+                },1000)
+            })
+            .catch((err)=>{
+                console.log(err)
+            })
+    }
     
 
   return (
@@ -63,7 +90,15 @@ function ProductCard({product}) {
                 <p className="text-gray-500 text-sm mt-2">{product.description.slice(0,50)}..</p>
                 <div className="flex items-center justify-between mt-4">
                     <span className="text-gray-900 font-bold text-md"><span className='text-gray-600'>Rs. </span>{product.price}</span>
-                    <span className="text-gray-900 font-bold text-md flex justify-center items-center gap-2"><span className='bg-red-400 rounded-sm cursor-pointer p-1 ' onClick={removeStock}><RiSubtractFill/></span> {stock}<span className='bg-green-400 rounded-sm p-1 cursor-pointer' onClick={addStock}><IoMdAdd/></span><span className='bg-red-500 rounded-sm p-1 cursor-pointer' onClick={deleteStock}><GrClearOption/></span></span>
+                    <span className="text-gray-900 font-bold text-md flex justify-center items-center gap-2"><span className=' hover:bg-gray-300 rounded-sm cursor-pointer p-1 ' onClick={removeStock}><RiSubtractFill/></span> {stock}<span className='hover:bg-gray-300 rounded-sm p-1 cursor-pointer' onClick={addStock}><IoMdAdd/></span><span className='rounded-sm text-gray-500 hover:bg-gray-300 p-1 cursor-pointer' onClick={deleteStock}><GrClearOption/></span></span>
+                </div>
+                <div className='flex justify-between mt-2 items-center'>
+                    <span className='text-md'>Add by Qnty</span>
+                    <span className='flex justify-center items-center'>
+                    <span className=' hover:bg-gray-300 text-black px-2 border-1 py-1 border-gray-400 rounded-l-md border-r-0 cursor-pointer' onClick={removeBulk} ><RiSubtractFill/></span>
+                    <input type="text" className='w-10 outline-0 border-1 px-2  border-gray-400' ref={bulkQuan} />
+                    <span className='hover:bg-gray-300 text-black px-2 border-1 py-1 border-gray-400 rounded-r-md border-l-0 cursor-pointer' onClick={adddBulk} ><IoMdAdd/></span>
+                    </span>
                 </div>
             </div>
   )

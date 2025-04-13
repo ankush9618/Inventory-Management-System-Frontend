@@ -7,6 +7,7 @@ function UserContextProvider({children}) {
     const [user,setUser] = useState({})
     const [loading, setLoading] = useState(false);
     useEffect(()=>{
+      console.log(1)
         try {
             const status = async()=>{
                 const response = await axiosInstance.get("/users/login-status");
@@ -29,7 +30,7 @@ function UserContextProvider({children}) {
           console.log(error)
         }
         
-    },[])
+    },[loggedIn])
 
   return (
     <UserContext.Provider value={{loggedIn,setLoggedIn,user,setUser,loading,setLoading}}>
