@@ -13,6 +13,7 @@ import UserContextProvider from "./context/UserContextProvider";
 import UpdateProduct from "./pages/UpdateProduct";
 import AddProduct from "./pages/AddProduct";
 import ProductContextProvider from "./context/ProductContextProvider";
+import InventoryManager from "./pages/InventoryManager";
 
 function App() {
   //const [user,setUser] = useState({});
@@ -43,6 +44,7 @@ function App() {
             <Route path="/products" element={<Products/>} />
             <Route path="/products/update/:id" element={<UpdateProduct/>}/>
             <Route path="/products/add" element={<AddProduct/>}/>
+            <Route path="/inventory" element={<InventoryManager/>}/>
           </Routes>
         </div>
       </div>
