@@ -25,15 +25,15 @@ function AddProduct() {
             "category":category.current.value
         }
 //console.log(formData)
-        await axiosInstance.post(`/products/add`,formData)
+        await axiosInstance.post(`/api/products/add`,formData)
         .then((res)=>{
             toast.success(res.data.message)
             navigate("/products");
         }).catch((err)=>{
-            const jsonResponse = parser.parse(err.response.data)?.html?.head?.body?.pre["#text"]
+            const jsonResponse = parser.parse(err.response.data)?.html?.head?.body?.pre["#text"].slice(7,);
             //console.log(jsonResponse)
-            setError(jsonResponse)
-            toast.error(jsonResponse)
+            setError(jsonResponse.slice(7,))
+            toast.error(jsonResponse.slice(7,))
         })
 
         //console.log(name.current.value)

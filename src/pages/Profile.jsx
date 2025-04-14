@@ -39,7 +39,7 @@ function Profile() {
     const formData = new FormData();
     formData.append("avatar", data.current.files[0]);
     try {
-      const res = await axiosInstance.patch("/users/update-avatar", formData);
+      const res = await axiosInstance.patch("/api/users/update-avatar", formData);
       //console.log(res);
       toast.success(res.data.message)
       setLoading(false)

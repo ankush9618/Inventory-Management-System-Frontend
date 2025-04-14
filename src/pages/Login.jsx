@@ -28,7 +28,7 @@ function Login() {
     setError('');
     setLoading(true);
     try {
-      const response = await axiosInstance.post('/users/login', formData); // ✅ set your actual route here
+      const response = await axiosInstance.post('/api/users/login', formData); // ✅ set your actual route here
       //console.log(response.data); // Optional: Handle token or session
       setLoading(false);
       setLoggedIn(true)
@@ -37,7 +37,7 @@ function Login() {
       navigate('/dashboard'); // ✅ redirect to a protected route
     } catch (err) {
       
-      const jsonResponse = parser.parse(err.response.data)?.html?.head?.body?.pre["#text"];
+      const jsonResponse = parser.parse(err.response.data)?.html?.head?.body?.pre["#text"].slic(7,);
                   //console.log(jsonResponse)
       
       setError(jsonResponse || 'Invalid email or password.1');

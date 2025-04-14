@@ -17,7 +17,7 @@ function ProductCard({product}) {
     //console.log(stock)
     const addStock = async() =>{
         setStock((prev)=>prev+1);
-            await axiosInstance.post(`/inventory/add/${product._id}`,{stock:1})
+            await axiosInstance.post(`/api/inventory/add/${product._id}`,{stock:1})
             .then((res)=>{
                 setTimeout(()=>{
                     toast.success(res.data.message,{autoClose:500})
@@ -29,7 +29,7 @@ function ProductCard({product}) {
     }
     const  removeStock= async() =>{
         setStock((prev)=>prev-1);
-        await axiosInstance.patch(`/inventory/remove/${product._id}`,{stock:1})
+        await axiosInstance.patch(`/api/inventory/remove/${product._id}`,{stock:1})
         .then((res)=>{
             toast.success(res.data.message,{autoClose:500})
         })
@@ -40,7 +40,7 @@ function ProductCard({product}) {
     }
     const deleteStock = async() =>{
         setStock(0);
-        await axiosInstance.patch(`/inventory/clear/${product._id}`)
+        await axiosInstance.patch(`/api/inventory/clear/${product._id}`)
         .then((res)=>{
             toast.success(res.data.message)
         })
@@ -52,7 +52,7 @@ function ProductCard({product}) {
 
     const adddBulk = async() =>{
         setStock((prev)=>prev+Number(bulkQuan.current.value));
-            await axiosInstance.post(`/inventory/add/${product._id}`,{stock:Number(bulkQuan.current.value)})
+            await axiosInstance.post(`/api/inventory/add/${product._id}`,{stock:Number(bulkQuan.current.value)})
             .then((res)=>{
                 setTimeout(()=>{
                     toast.success(res.data.message,{autoClose:500})
@@ -65,7 +65,7 @@ function ProductCard({product}) {
     }
     const removeBulk = async() =>{
         setStock((prev)=>prev-Number(bulkQuan.current.value));
-            await axiosInstance.patch(`/inventory/remove/${product._id}`,{stock:Number(bulkQuan.current.value)})
+            await axiosInstance.patch(`/api/inventory/remove/${product._id}`,{stock:Number(bulkQuan.current.value)})
             .then((res)=>{
                 setTimeout(()=>{
                     toast.success(res.data.message,{autoClose:500})

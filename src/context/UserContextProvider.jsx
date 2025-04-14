@@ -10,13 +10,13 @@ function UserContextProvider({children}) {
       console.log(1)
         try {
             const status = async()=>{
-                const response = await axiosInstance.get("/users/login-status");
+                const response = await axiosInstance.get("/api/users/login-status");
                 setLoggedIn(response.data)
                 //console.log(response.data)
             }
             const userDetails = async()=>{
               try {
-                const resp = await axiosInstance.get("/users/details");
+                const resp = await axiosInstance.get("/api/users/details");
                 setUser(resp.data.data)
                 //console.log(resp.data.data)
               } catch (error) {

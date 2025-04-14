@@ -11,7 +11,7 @@ function ProductContextProvider({children}) {
     useEffect(() => {
         if(loggedIn){
           setLoading(true)
-          axiosInstance.get("/products")
+          axiosInstance.get("/api/products")
             .then((res) => {
               //console.log(res.data.data)
               //console.log(req.user)

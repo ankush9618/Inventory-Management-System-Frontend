@@ -17,7 +17,7 @@ function Sidebar() {
   const navigate = useNavigate();
   const handleLogout = async (e) => {
     try {
-      const res = await axiosInstance.post("/users/logout");
+      const res = await axiosInstance.post("/api/users/logout");
       setMenuOpen(false)
       setLoggedIn(false);
       !isMobile && toast.warn(res.data.message);

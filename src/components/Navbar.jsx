@@ -15,7 +15,7 @@ function Navbar() {
       // if(!loggedIn){
       //   navigate("/login")
       // }
-      const res = await axiosInstance.get("/users/details");
+      const res = await axiosInstance.get("/api/users/details");
       setUser(res.data.data)
      // console.log(res.data.data);
     } catch (error) {
@@ -24,9 +24,9 @@ function Navbar() {
   }
   const handleLogout = async (e) => {
     try {
-      const res = await axiosInstance.post("/users/logout");
+      const res = await axiosInstance.post("/api/users/logout");
       setLoggedIn(false);
-      toast.warn(res.data.message);
+      toast.warn(res.data.message,{autoClose:1000});
       navigate("/")
       //console.log(res);
     } catch (err) {

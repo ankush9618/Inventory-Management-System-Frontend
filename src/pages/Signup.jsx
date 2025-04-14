@@ -20,13 +20,13 @@ function Signup() {
         e.preventDefault();
         const userData = {name:name.current.value,email:email.current.value,password:password.current.value,role:role.current.value};
         setFormData(userData)
-        await axiosInstance.post("/users/register",userData)
+        await axiosInstance.post("/api/users/register",userData)
         .then((res)=>{
           toast.success(res.data.message);
           navigate("/")
         })
         .catch((err)=>{
-          const jsonResponse = parser.parse(err.response.data)?.html?.head?.body?.pre["#text"]
+          const jsonResponse = parser.parse(err.response.data)?.html?.head?.body?.pre["#text"].slice(7,)
             //console.log(jsonResponse)
             setError(jsonResponse)
         })

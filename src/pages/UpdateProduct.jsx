@@ -11,7 +11,7 @@ function UpdateProduct() {
     useEffect(()=>{
         //console.log("start",id)
         const getProduct = async()=>{
-            await axiosInstance.get(`/products/${id}`)
+            await axiosInstance.get(`/api/products/${id}`)
         .then((res)=>{
             setProduct(res.data.data)
         })
@@ -36,13 +36,13 @@ function UpdateProduct() {
             "category":category.current.value
         }
 //console.log(formData)
-        await axiosInstance.patch(`/products/update/${id}`,formData)
+        await axiosInstance.patch(`/api/products/update/${id}`,formData)
         .then((res)=>{
             toast.success(res.data.message)
             navigate("/products");
         }).catch((err)=>{
             console.log(err)
-            const jsonResponse = parser.parse(err.response.data)?.html?.head?.body?.pre["#text"]
+            const jsonResponse = parser.parse(err.response.data)?.html?.head?.body?.pre["#text"].slice(7,)
             //console.log(jsonResponse)
             setError(jsonResponse)
             toast.error(jsonResponse);

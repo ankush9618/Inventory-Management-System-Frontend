@@ -16,7 +16,7 @@ function Products() {
   return (
     <>
     {
-      loggedIn?(!loading?<div className="bg-gradient-to-tr from-white via-zinc-400 to-gray-400 py-16 px-8 min-h-screen">
+      loggedIn?(!loading?<div className="bg-gradient-to-tr from-white via-zinc-500 to-gray-500 py-16 px-8 min-h-screen">
       <div className="container mx-auto px-4">
           <div className='flex justify-center md:gap-16 gap-4 items-center mb-8'>
           <h2 className="md:text-3xl font-bold text-white">Our Latest Product</h2> <NavLink to="/products/add" className="md:text-xl dark:text-white flex justify-center items-center gap-2 font-semibold bg-gray-900 px-3 py-1 rounded-full pr-4"><IoAddOutline className='md:text-3xl'/>Add</NavLink>
