@@ -29,19 +29,20 @@ function Login() {
     setLoading(true);
     try {
       const response = await axiosInstance.post('/users/login', formData); // ✅ set your actual route here
-      console.log(response.data); // Optional: Handle token or session
+      //console.log(response.data); // Optional: Handle token or session
       setLoading(false);
       setLoggedIn(true)
       //alert('Login successful!');
       toast.success(response.data.message,{autoClose:1000})
       navigate('/dashboard'); // ✅ redirect to a protected route
     } catch (err) {
-      console.error(err);
+      
       const jsonResponse = parser.parse(err.response.data)?.html?.head?.body?.pre["#text"];
                   //console.log(jsonResponse)
       
       setError(jsonResponse || 'Invalid email or password.1');
-      toast.error(jsonResponse)
+      toast.error(jsonResponse);
+      console.error(jsonResponse);
       setLoading(false);
     }
   };
