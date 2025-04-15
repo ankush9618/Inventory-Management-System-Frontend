@@ -9,6 +9,7 @@ function ProductContextProvider({children}) {
     const [products,setProducts] = useState([]);
     //console.log(products)
     useEffect(() => {
+      //console.log(loggedIn)
         if(loggedIn){
           setLoading(true)
           axiosInstance.get("/api/products")
@@ -16,15 +17,15 @@ function ProductContextProvider({children}) {
               //console.log(res.data.data)
               //console.log(req.user)
               //toast.success(res.data.message)
-              console.log(1)
+              //console.log(1)
               setProducts(res.data.data); // assuming you return { data: [...] }
               setLoading(false)
             })
             .catch((err) => {
-              console.error("Error fetching products:", err);
+              console.error("Error fetching products:", err.response.data);
             });
         }
-        }, [refresh,loggedIn]);
+        }, [loggedIn,refresh]);
   return (
     <ProductContext.Provider value={{products,setProducts,refresh,setRefresh}}>
         {children}

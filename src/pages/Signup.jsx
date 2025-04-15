@@ -26,9 +26,9 @@ function Signup() {
           navigate("/")
         })
         .catch((err)=>{
-          const jsonResponse = parser.parse(err.response.data)?.html?.head?.body?.pre["#text"].slice(7,)
             //console.log(jsonResponse)
-            setError(jsonResponse)
+            toast.error(err.response.data.message)
+            setError(err.response.data.message)
         })
         
     }

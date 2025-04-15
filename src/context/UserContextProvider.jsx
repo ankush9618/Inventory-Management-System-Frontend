@@ -7,7 +7,7 @@ function UserContextProvider({children}) {
     const [user,setUser] = useState({})
     const [loading, setLoading] = useState(false);
     useEffect(()=>{
-      console.log(1)
+      //console.log(1)
         try {
             const status = async()=>{
                 const response = await axiosInstance.get("/api/users/login-status");
@@ -18,13 +18,15 @@ function UserContextProvider({children}) {
               try {
                 const resp = await axiosInstance.get("/api/users/details");
                 setUser(resp.data.data)
-                console.log(resp.data.data)
+                //console.log(resp.data.data)
               } catch (error) {
                 console.log(error)
               }
             }
             status()
-            userDetails()
+            if(loggedIn){
+              userDetails()
+            }
           
         } catch (error) {
           console.log(error)

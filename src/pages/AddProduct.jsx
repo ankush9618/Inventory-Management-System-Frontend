@@ -30,10 +30,9 @@ function AddProduct() {
             toast.success(res.data.message)
             navigate("/products");
         }).catch((err)=>{
-            const jsonResponse = parser.parse(err.response.data)?.html?.head?.body?.pre["#text"].slice(7,);
-            //console.log(jsonResponse)
-            setError(jsonResponse.slice(7,))
-            toast.error(jsonResponse.slice(7,))
+            
+            setError(err.response.data.message)
+            toast.error(err.response.data.message)
         })
 
         //console.log(name.current.value)

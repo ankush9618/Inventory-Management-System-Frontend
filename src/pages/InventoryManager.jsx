@@ -7,14 +7,14 @@ function InventoryManager() {
     const {products} = useContext(ProductContext);
     const [filteredProducts,setFilteredProducts] = useState(products);
     const[querLength,setQueryLength] = useState(filteredProducts.length)
-    console.log(querLength)
+    //console.log(querLength)
 
     useEffect(()=>{
         setFilteredProducts(products.filter((product)=>product.name.toLowerCase().includes(query.toLowerCase())))
         setQueryLength(filteredProducts.length)
     },[query])
 
-    console.log(filteredProducts)
+    //console.log(filteredProducts)
 
   return (
     <>

@@ -47,10 +47,9 @@ function Profile() {
       //navigate("/users/profile")
     } catch (error) {
       //console.error("Error:", error);
-      const jsonResponse = parser.parse(error.response.data)?.html?.head?.body?.pre["#text"]
-                  //console.log(jsonResponse)
-      setError(jsonResponse)
-      toast.error(jsonResponse)
+      
+      setError(error.response.data.message)
+      toast.error(error.response.data.message)
     }
   };
   

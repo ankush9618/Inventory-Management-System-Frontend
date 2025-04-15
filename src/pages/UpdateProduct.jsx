@@ -36,17 +36,16 @@ function UpdateProduct() {
             "category":category.current.value
         }
 //console.log(formData)
-        await axiosInstance.patch(`/api/products/update/${id}`,formData)
-        .then((res)=>{
-            toast.success(res.data.message)
+        try {
+            const response = await axiosInstance.patch(`/api/products/update/${id}`, formData);
+            toast.success(response.data.message);
             navigate("/products");
-        }).catch((err)=>{
-            console.log(err)
-            const jsonResponse = parser.parse(err.response.data)?.html?.head?.body?.pre["#text"].slice(7,)
-            //console.log(jsonResponse)
-            setError(jsonResponse)
-            toast.error(jsonResponse);
-        })
+        }
+        catch(err){
+            
+            setError(err.response.data.message||"Access Denied Admin Only")
+            toast.error(err.response.data.message||"Access Denied Admin Only");
+        }
 
         //console.log(name.current.value)
     }

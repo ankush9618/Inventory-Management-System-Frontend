@@ -29,26 +29,23 @@ function Login() {
     setLoading(true);
     try {
       const response = await axiosInstance.post('/api/users/login', formData); // ✅ set your actual route here
-      //console.log(response.data); // Optional: Handle token or session
+      //console.log(response.data); 
       setLoading(false);
       setLoggedIn(true)
       //alert('Login successful!');
       toast.success(response.data.message,{autoClose:1000})
-      navigate('/dashboard'); // ✅ redirect to a protected route
+      navigate('/dashboard');
     } catch (err) {
       
-      const jsonResponse = parser.parse(err.response.data)?.html?.head?.body?.pre["#text"].slice(7,);
-                  //console.log(jsonResponse)
-      
-      setError(jsonResponse || 'Invalid email or password.1');
-      toast.error(jsonResponse);
-      console.error(jsonResponse);
+      setError(err.response.data.message || 'Invalid email or password');
+      toast.error(err.response.data.message || 'Invalid email or password');
+      //console.error(jsonResponse);
       setLoading(false);
     }
   };
   useEffect(()=>{
     if(loggedIn){
-      //console.log(1)
+      //console.log("LoggedIn")
         navigate("/dashboard")
     }
   },[loggedIn])
