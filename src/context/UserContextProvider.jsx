@@ -18,9 +18,9 @@ function UserContextProvider({children}) {
               try {
                 const resp = await axiosInstance.get("/api/users/details");
                 setUser(resp.data.data)
-                //console.log(resp.data.data)
+                console.log(resp.data.data)
               } catch (error) {
-                console.log(err)
+                console.log(error)
               }
             }
             status()

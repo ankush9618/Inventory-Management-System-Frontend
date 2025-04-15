@@ -37,7 +37,7 @@ function Login() {
       navigate('/dashboard'); // ✅ redirect to a protected route
     } catch (err) {
       
-      const jsonResponse = parser.parse(err.response.data)?.html?.head?.body?.pre["#text"].slic(7,);
+      const jsonResponse = parser.parse(err.response.data)?.html?.head?.body?.pre["#text"].slice(7,);
                   //console.log(jsonResponse)
       
       setError(jsonResponse || 'Invalid email or password.1');
