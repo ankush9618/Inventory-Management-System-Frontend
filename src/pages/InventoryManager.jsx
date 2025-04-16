@@ -21,7 +21,7 @@ function InventoryManager() {
 
   return (
     <>
-    <div className='bg-gradient-to-tr from-gray-500 via-zinc-400 to-gray-500 py-12 md:px-16 min-h-screen'>
+    <div className='bg-gradient-to-tr from-gray-500 via-zinc-400 to-gray-500 py-12 md:px-16 px-2 min-h-screen'>
         <input type="text" name="search" id="search"  placeholder='Enter Product Name to search (e.g: Dolo)' className='text-xl px-2 py-2 w-full outline-none border-white border-2 dark:text-white rounded-md' onChange={(e)=>setQuery(e.target.value)}/>
 
         {((querLength==0 && query)|| !loggedIn ) && <div
