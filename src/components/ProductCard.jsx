@@ -51,6 +51,11 @@ function ProductCard({product}) {
     const bulkQuan=useRef(0);
 
     const adddBulk = async() =>{
+        //console.log(bulkQuan)
+        if(bulkQuan.current.value<0){
+            toast.error("Stock cannot be less then 0")
+            return
+        }
         setStock((prev)=>prev+Number(bulkQuan.current.value));
             await axiosInstance.post(`/api/inventory/add/${product._id}`,{stock:Number(bulkQuan.current.value)})
             .then((res)=>{
@@ -64,6 +69,10 @@ function ProductCard({product}) {
             })
     }
     const removeBulk = async() =>{
+        if(bulkQuan.current.value<0){
+            toast.error("Stock cannot be less then 0")
+            return
+        }
         setStock((prev)=>prev-Number(bulkQuan.current.value));
             await axiosInstance.patch(`/api/inventory/remove/${product._id}`,{stock:Number(bulkQuan.current.value)})
             .then((res)=>{

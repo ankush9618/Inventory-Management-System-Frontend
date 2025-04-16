@@ -17,9 +17,15 @@ function Signup() {
 
   const [formData,setFormData] = useState({});
     const signupHandler = async(e)=>{
+      
         e.preventDefault();
+        if(password.current.value.length<8){
+          setError("Password Cannot be less then 8 charecters")
+          return 
+        }
         const userData = {name:name.current.value,email:email.current.value,password:password.current.value,role:role.current.value};
         setFormData(userData)
+        console.log(userData)
         await axiosInstance.post("/api/users/register",userData)
         .then((res)=>{
           toast.success(res.data.message);
@@ -27,6 +33,7 @@ function Signup() {
         })
         .catch((err)=>{
             //console.log(jsonResponse)
+            console.log(err.response)
             toast.error(err.response.data.message)
             setError(err.response.data.message)
         })
