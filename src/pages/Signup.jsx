@@ -68,7 +68,7 @@ function Signup() {
                       <label htmlFor="role" className="block  text-sm font-medium text-gray-900 dark:text-white">Role</label>
                       <select name="role" id="role" className='p-1 text-white dark:bg-gray-700 bg-gray-50 border border-gray-300 dark:border-gray-600 dark:placeholder-gray-400 rounded-md' ref={role}>
                         <option value="employee" className='text-gray-500'>Employee</option>
-                        <option value="admin" className='text-gray-500'>Admin</option>
+                        {/* <option value="admin" className='text-gray-500'>Admin</option> */}
                         </select>
                   </div>
                   
