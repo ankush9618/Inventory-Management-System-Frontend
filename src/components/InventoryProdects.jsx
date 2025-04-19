@@ -24,6 +24,10 @@ function InventoryProdects({ product }) {
   }
 
   const removeBulk = async () => {
+    if(stock==0 || stock< bulkQuan.current.value){
+      toast.error("Product Stock Cannot be Negative");
+      return 
+    }
     if (bulkQun.current.value < 0) {
       toast.error("Quantity cannot be less than 0")
       return
@@ -48,6 +52,10 @@ function InventoryProdects({ product }) {
   }
 
   const removeStock = async () => {
+    if(stock==0){
+      toast.error("Product Stock Cannot be Negative");
+      return 
+    }
     setStock((prev) => prev - 1)
     try {
       const res = await axiosInstance.patch(`/api/inventory/remove/${product._id}`, { stock: 1 })
