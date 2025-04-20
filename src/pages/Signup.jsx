@@ -42,10 +42,10 @@ function Signup() {
   return (
     <>
     <div className=''>
-    <section className="bg-gray-50 dark:bg-gray-500">
-  <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+    <section className="bg-gray-500">
+  <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:min-h-screen lg:py-0  dark:bg-gray-500">
       
-      <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+      <div className="w-full light:bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 bg-white dark:bg-gray-800 dark:border-gray-700">
           <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
               <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white text-center">
                   SignUp
@@ -66,7 +66,7 @@ function Signup() {
                   
                   <div className='flex justify-start items-center gap-4'>
                       <label htmlFor="role" className="block  text-sm font-medium text-gray-900 dark:text-white">Role</label>
-                      <select name="role" id="role" className='p-1 text-white dark:bg-gray-700 bg-gray-50 border border-gray-300 dark:border-gray-600 dark:placeholder-gray-400 rounded-md' ref={role}>
+                      <select name="role" id="role" className='p-1 dark:text-white dark:bg-gray-700 bg-gray-50 border border-gray-300 dark:border-gray-600 dark:placeholder-gray-300 rounded-md' ref={role}>
                         <option value="employee" className='text-gray-500'>Employee</option>
                         {/* <option value="admin" className='text-gray-500'>Admin</option> */}
                         </select>
@@ -81,9 +81,9 @@ function Signup() {
                       </div>
                   </div> */}
                   {error && <p className="text-red-500 text-sm">{error}</p>}
-                  <button type="submit" className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">SignUp</button>
+                  <button type="submit" className="w-full text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:focus:ring-primary-800">SignUp</button>
                   <p className="text-sm font-light text-gray-500 dark:text-gray-400">
-                      Already have an account? <NavLink to="/login" className="font-medium text-primary-600 hover:underline dark:text-primary-500">Login</NavLink>
+                      Already have an account? <NavLink to="/login" className="font-medium text-primary-600 hover:underline text-blue-600">Login</NavLink>
                   </p>
               </form>
           </div>
