@@ -8,7 +8,7 @@ function DashboardCard() {
   return (
     <>
     <div className="rounded-2xl border border-gray-200 bg-white p-5  md:p-6 md:w-90 mb-5">
-    <h4 className="text-title-sm font-bold dark:text-gray-800 text-white/90">
+    <h4 className="text-title-sm font-boldtext-gray-800">
       Total Products
     </h4>
 

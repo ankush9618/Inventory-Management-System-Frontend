@@ -33,7 +33,7 @@ function DashboardPrice() {
     {
       loader?<ProfileLoader/>:<>
       
-      <h4 className="text-title-sm font-bold dark:text-gray-800 text-white/90">
+      <h4 className="text-title-sm font-bold text-gray-800 ">
       Total Inventory Cost
     </h4>
     <div className="mt-4 flex items-end justify-between sm:mt-5">
