@@ -35,8 +35,8 @@ function Dashboard() {
     <div className="md:py-16 md:px-8 min-h-screen">
       <div className="container mx-auto px-4">
           <div className='flex justify-center md:gap-16 gap-4 items-center mb-8'>
-          <h2 className="md:text-3xl font-bold text-white">Our Latest Product</h2> <NavLink to="/products/add" className="md:text-xl flex justify-center items-center gap-2 font-semibold bg-gray-900 px-3 py-1 rounded-full pr-4 dark:bg-white dark:text-gray-900"><IoAddOutline className='md:text-3xl'/>Add</NavLink>
-          <div className='md:text-xl flex justify-center items-center gap-2 font-semibold bg-gray-900 px-3 py-1 rounded-full pr-4 dark:bg-white dark:text-gray-900 cursor-pointer' onClick={refreshHandler}>Refresh</div>
+          <h2 className="md:text-3xl font-bold text-white">Our Latest Product</h2> <NavLink to="/products/add" className="md:text-xl flex justify-center items-center gap-2 font-semibold px-3 py-1 rounded-full pr-4 bg-white text-black border-2 dark:border-0"><IoAddOutline className='md:text-3xl'/>Add</NavLink>
+          <div className='md:text-xl flex justify-center items-center gap-2 font-semibold bg-white text-black border-2 dark:border-0 px-3 py-1 rounded-full pr-4 cursor-pointer' onClick={refreshHandler}>Refresh</div>
           </div>
           <div className="grid grid-cols-1 xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 gap-4 md:gap-8">{[...products].reverse().map((product)=><div key={product._id}><ProductCard product={product}/></div>)}</div></div></div>
     </div>

@@ -20,7 +20,7 @@ function UserContextProvider({children}) {
                 setUser(resp.data.data)
                 //console.log(resp.data.data)
               } catch (error) {
-                console.log(error)
+                console.log(error.response.data)
               }
             }
             status()
